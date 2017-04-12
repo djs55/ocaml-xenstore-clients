@@ -192,14 +192,14 @@ let main () =
 		)
     | "write" :: expr ->
 		begin
-      lwt items = Lwt.catch
+      (Lwt.catch
         (fun () ->
           let expr = String.concat " " expr |> parse_expr in
           if !verbose then Printf.printf "Parsed: %s\n%!" (pretty_print () expr);
           expr |> to_conjunction |> return)
         (function
           | Invalid_expression as e -> Lwt_io.write Lwt_io.stderr "Invalid expression; expected <key=val> [and key=val]*\n" >>= fun () -> raise_lwt e
-          | e -> Lwt.fail e) in
+          | e -> Lwt.fail e)) >>= fun items ->
 			make () >>= fun client ->
 			immediate client
 			(fun xs ->
