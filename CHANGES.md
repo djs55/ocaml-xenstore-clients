@@ -1,3 +1,11 @@
+## 0.9.5 (2017-06-09):
+* split the CLI into a separate `xenstore-tool` opam package
+* build with jbuilder
+* release with topkg
+* remove dependency on camlp4
+* search for the xenbus path in Unix client
+* add tests
+
 ## 0.9.4 (2014-06-16):
 * use the xenbus device if the Unix domain socket isn't available
 * respect the XENSTORED_PATH environment variable
